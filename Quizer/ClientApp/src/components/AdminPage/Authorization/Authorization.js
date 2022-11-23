@@ -1,6 +1,7 @@
 ﻿import React from 'react'
-import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom"
+import { Navigate} from "react-router-dom"
+import MyForm from "../../MyForm/MyForm";
+import './Authorization.scss'
 
 class Authorization extends React.Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class Authorization extends React.Component {
                 password: ''
             },
             groups: [],
+            authorize: false
         }
+        this.admin = props.admin
     }
     
     onChangeProperties = (e) => {
@@ -23,69 +26,56 @@ class Authorization extends React.Component {
                 ...this.state.form,
                 firstname: target.name === 'firstname' ? target.value.toLowerCase() : this.state.form.firstname,
                 lastname: target.name === 'lastname' ? target.value.toLowerCase() : this.state.form.lastname,
-                group: target.name === 'group' ? target.value.toLowerCase() : this.state.form.group,
+                group: target.name === 'group' ? target.options[target.selectedIndex].dataset.id : this.state.form.group,
                 password: target.name === 'password' ? target.value : this.state.form.password,
             }
         })
-        console.log(this.state)
-    }
-    
-    postData = (e) => {
-        e.preventDefault()
-        const data = JSON.stringify(this.state.form)
-        console.log(data)
-        fetch('https://localhost:7276/Authorization/Auth', {
-            method: 'POST',
-            body: data,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => console.log(response))
     }
 
-    getGroups = async () => {
-        await fetch('https://localhost:7276/Authorization/GetGroups')
-            .then(response => {
-                console.log(response)
-                return response.json()
+    detectToken = () => {
+        const token = localStorage.getItem("accessToken")
+        if (token) {
+            fetch('http://localhost:5276/Authorization/DetectToken', {
+                method: 'POST',
+                body: JSON.stringify({'accessToken': token}),
+                headers: {
+                    'Content-Type': 'Application/json'
+                }
             })
-            .then(data => {
-                this.setState({ groups: data })
-            })
+                .then(response => {
+                    console.log(response)
+                    return response.json()
+                })
+                .then(data => {
+                    this.setState({authorize: data.accessToken})
+                })
+        }
     }
+
+    postDataAuthUser = (e, urlToAction='http://localhost:5276/Authorization/Auth',
+                        urlToPage='http://localhost:5276/UserPage/Index') => {
+        this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessToken')
+    }
+
+    getGroups = async () => await fetch('http://localhost:5276/Authorization/GetGroups')
 
     componentDidMount() {
         this.getGroups()
-    }
-    
-    render() {
+            .then(response => response.json())
+            .then(data => this.setState({ groups: data }))
 
+        this.detectToken()
+
+        console.log(this.state.authorize)
+    }
+
+    render() {
         return (
+            this.props.appState.authorize ? <Navigate to={"UserPage/Index"}/>
+                :
             <section className="authorization">
                 <h1>Авторизация</h1>
-                <Form className="row-cols-1">
-                    <Form.Group className="mb-2" controlId="formBasicEmail">
-                        <Form.Control type="text" name="firstname" placeholder="Введите имя" onChange={this.onChangeProperties}/>
-                    </Form.Group>
-                    <Form.Group className="mb-2" controlId="formBasicEmail">
-                        <Form.Control type="text" name="lastname" placeholder="Введите фамилию" onChange={this.onChangeProperties}/>
-                    </Form.Group>
-                    <Form.Group className="mb-2">
-                        <Form.Select id="disabledSelect" name="group" onChange={this.onChangeProperties}>
-                            <option>Выберете номер группы</option>
-                            {this.state.groups.map((item, i) => 
-                                 <option value={item} key={i}>{item.toUpperCase()}</option>
-                            )}
-                            
-                        </Form.Select>
-                    </Form.Group>
-                    <Form.Group className="mb-2" controlId="formBasicPassword">
-                        <Form.Control type="password" name="password" placeholder="Пароль" onChange={this.onChangeProperties}s/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" onClick={e => this.postData(e)}>Войти</Button>
-                    <Link to='/UserPage/Index' >Открыть</Link>
-                </Form>
+                <MyForm admin={this.admin} groups={this.state.groups} postData={this.postDataAuthUser} onChangeProperties={this.onChangeProperties}/>
             </section>
         );
     }

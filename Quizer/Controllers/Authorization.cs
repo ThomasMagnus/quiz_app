@@ -1,70 +1,122 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Quizer.Models;
-using Quizer.Models.Groups;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Text;
+using Microsoft.Extensions.Options;
+using Quizer.HelperClasses;
+using Quizer.HelperInterfaces;
+using Quizer.Models;
+using Quizer.Context;
 
 namespace Quizer.Controllers;
 
 public class Authorization : Controller
 {
+
+    private readonly JwtSettings _options;
+    private string _token;
+
+    public Authorization(IOptions<JwtSettings> options)
+    {
+        _options = options.Value;
+    }
+
     [HttpPost]
     public async Task<IActionResult>? Auth([FromBody] JsonElement value)
     {
         Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
-        using (UsersContext usersContext = new())
+        using ApplicationContext applicationContext = new();
+
+        UsersServices usersServices = new UsersServices() { db = applicationContext };
+            
+        try
         {
-            List<Users>? users = usersContext.Users?.ToList();
 
-
-            try
+            Users? person = await usersServices.GetEntity(new Dictionary<string, object>
             {
-                Users? person = users?.FirstOrDefault(x => x.Firstname?.ToLower() == data?["firstname"].ToLower()
-                                                               && x.Lastname?.ToLower() == data?["lastname"].ToLower()
-                                                               && x.Password == data?["password"]);
-                // Console.WriteLine(person?.GroupsId);
+                {"firstname", data?["firstname"].ToLower()},
+                {"lastname",  data?["lastname"].ToLower()},
+                {"password", data?["password"]},
+                {"group", Int32.Parse(data?["group"].ToString())}
+            });
+                
+            if (person is null) { return Json("Пользователь не найден"); }
+            else
+            {
+                string username = $"{person?.Firstname?.Replace(" ", "")} " +
+                                                    $"{person?.Lastname?.Replace(" ", "")}";
 
-                if (person is null) { Console.WriteLine("Пользователь не найден!"); };
+                TokenSecurity tokenSecurity = new(_options, username);
 
-                List<Claim> claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, "Quizer") };
+                _token = tokenSecurity.GetToken();
 
-                ClaimsIdentity identity = new ClaimsIdentity(claims, "ApplicationCookie",
-                    CookieAuthenticationDefaults.AuthenticationScheme, ClaimsIdentity.DefaultRoleClaimType);
+                var response = new
+                {
+                    accessToken = _token,
+                    username = tokenSecurity._claimsCreator.GetClaims().Name,
+                    id = person?.Id
+                };
 
-                await HttpContext.SignInAsync(null, new ClaimsPrincipal(identity));
+                UserPropertyCreator userPropertyCreator = new (
+                    firstname: person?.Firstname,
+                    lastname: person?.Lastname,
+                    group: applicationContext?.Groups?.ToList().First(x => x.Id == Int32.Parse(data?["group"])).Name,
+                    id: person?.Id);
 
-                Console.WriteLine("Успешно!");
+                userPropertyCreator.CreateUser();
 
-                return RedirectToAction(actionName: "Index", controllerName: "UserPage");
+                using SessionsContext sessionsContext = new();
+                sessionsContext.sessions.Add(new Sessions()
+                {
+                    userid = person?.Id,
+                    userfirstname = person?.Firstname,
+                    userlastname = person?.Lastname,
+                    enterdate = DateTime.Now,
+                });
+                sessionsContext.SaveChanges();
 
+                return Json(response);
             }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-                return (IActionResult)Response.WriteAsync("Ошибка авторизации");
-            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            return Json("Ошибка авторизации");
         }
     }
 
     [HttpGet]
     public JsonResult? GetGroups()
     {
-        using (GroupsContext grpoupsContext = new())
-        {
-            try
-            {
-                List<Groups>? groups = grpoupsContext.Groups?.ToList();
-                string[]? groupsName = groups?.Select(x => x.Name).ToArray();
+        using ApplicationContext grpoupsContext = new();
 
-                return Json(groupsName);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
+        try
+        {
+            List<Groups>? groups = grpoupsContext.Groups?.ToList();
+            string[][]? groupsName = groups?.Select(x => new string[] {x.Name, x.Id.ToString()}).ToArray();
+
+            return Json(groupsName);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return null;
         }
     }
+
+    [HttpPost]
+    public IActionResult DetectToken([FromBody] JsonElement value)
+    {
+        Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
+        bool result = data?["accessToken"] == _token;
+        return Json(new Dictionary<string, bool> {
+            {"access", result}
+        });
+    }
+
 }
