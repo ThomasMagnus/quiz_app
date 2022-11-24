@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Quizer.Models;
 using Quizer.HelperClasses;
 using System.Text.RegularExpressions;
+using Quizer.Context;
 
 namespace Quizer.Controllers
 {
@@ -51,6 +52,18 @@ namespace Quizer.Controllers
             };
 
             return Json(userProperty);
+        }
+
+        public async Task<IActionResult> GetTasks()
+        {
+            using ApplicationContext applicationContext = new();
+            TasksServices tasksServices = new TasksServices() { db = applicationContext };
+            Tasks? task = await tasksServices.GetEntity(new Dictionary<string, object>()
+            {
+                {"subjectsId", 1},
+            });
+
+            return Json(task);
         }
 
     }

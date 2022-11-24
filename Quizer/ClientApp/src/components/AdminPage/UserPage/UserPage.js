@@ -15,6 +15,16 @@ class UserPage extends React.Component {
         userProps: {}
     }
 
+    getTasks = async () => {
+        this.response = await fetch('http://localhost:5276/UserPage/GetTasks')
+
+        if (this.response.status === 200) {
+            return await this.response.json()
+        }
+
+        console.log('Ошибка запроса tasks')
+    }
+
     logOut = () => {
         localStorage.clear()
         return document.location = '/'
@@ -39,6 +49,10 @@ class UserPage extends React.Component {
                 this.setState({userProps: data})
             })
 
+        await this.getTasks()
+            .then(data => {
+                console.log(data)
+            })
     }
 
     render() {

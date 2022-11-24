@@ -8,8 +8,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Quizer.HelperClasses;
-using Quizer.HelperInterfaces;
-using Quizer.Models;
 using Quizer.Context;
 
 namespace Quizer.Controllers;
