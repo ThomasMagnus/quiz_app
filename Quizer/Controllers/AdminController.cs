@@ -4,6 +4,7 @@ using System.Text.Json;
 using Quizer.Models;
 using Quizer.HelperClasses;
 using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace Quizer.Controllers
 {
@@ -18,18 +19,19 @@ namespace Quizer.Controllers
         [HttpPost]
         public IActionResult Index([FromBody] JsonElement value)
         {
-            Console.WriteLine(value);
             Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
 
             using AdminsContext adminContext = new();
 
-            List<Admins> adminsList = adminContext.Admins.ToList();
+            List<Admin> adminsList = adminContext.Admin.ToList();
 
-            Admins? admin = adminsList.FirstOrDefault(x => x.firstname?.ToLower().Replace(" ", "") == data?["firstname"].Trim() 
-                                                    && x.lastname?.ToLower().Replace(" ", "") == data?["lastname"].Trim());
+            Admin? admin = adminsList.FirstOrDefault(x => x.FName?.ToLower().Replace(" ", "") == data?["firstname"].Trim() 
+                                                    && x.LName?.ToLower().Replace(" ", "") == data?["lastname"].Trim()
+                                                    && x.Login?.ToLower().Replace(" ", "") == data?["login"].Trim()
+                                                    && x.Password?.Replace(" ", "") == data?["password"].Replace(" ", ""));
 
             if (admin is null) { return Json("Администратор не найден"); }
-            string username = String.Format("{0} {1}", admin?.firstname?.Replace(" ", ""), admin?.lastname?.Replace(" ", ""));
+            string username = String.Format("{0} {1}", admin?.FName?.Replace(" ", ""), admin?.LName?.Replace(" ", ""));
             TokenSecurity tokenSecurity = new(_options, username);
             string tokenHandler = tokenSecurity.GetToken();
 
@@ -38,6 +40,7 @@ namespace Quizer.Controllers
                 accessAdminToken = tokenHandler,
                 username = tokenSecurity._claimsCreator.GetClaims().Name,
                 admin?.id
+
             };
 
             return Json(response);

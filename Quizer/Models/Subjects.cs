@@ -9,14 +9,14 @@ namespace Quizer.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public string? name { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
     }
 
     public class SubjectsContext : ApplicationContext
     {
         public DbSet<Subjects>? subjects { get; set; }
         public SubjectsContext()
-            :base() { }
+            :base() {}
     }
 }

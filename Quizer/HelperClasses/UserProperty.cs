@@ -5,8 +5,6 @@ namespace Quizer.HelperClasses
 {
     public static class UserProperty
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public static int? id { get; set; }
         public static string? firstname { get; set; }
         public static string? lastname { get; set; }

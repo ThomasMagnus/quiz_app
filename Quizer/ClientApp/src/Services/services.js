@@ -8,6 +8,32 @@ export const getPage = async (url, tokenName) => {
         .then(response => response.json())
 }
 
-export const detectLocalStorage = (tokenName) => {
-    return !!localStorage.getItem(tokenName);
+export const detectLocalStorage = async (tokenName, detectAuthUrl) => {
+    if (localStorage.getItem(tokenName)) {
+        await fetch(detectAuthUrl, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem(tokenName)}`
+            }
+        })
+            .then(data => {
+                if (data.status === 200) {
+                    console.log(data)
+                }
+            })
+    }
 };
+
+
+export function onChangeProperties(e) {
+    const target = e.target
+    this.setState({
+        form: {
+            ...this.state.form,
+            fname: target.name === 'firstname' ? target.value.toLowerCase() : this.state.form.fname,
+            lname: target.name === 'lastname' ? target.value.toLowerCase() : this.state.form.lname,
+            login: target.name === 'login' ? target.value.toLowerCase() : this.state.form.login,
+            password: target.name === 'password' ? target.value.toLowerCase() : this.state.form.password,
+        }
+    })
+}
+

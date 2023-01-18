@@ -13,9 +13,11 @@ namespace Quizer.Models
         public int? Id { get; set; }
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
+        public string? Patronymic { get; set; }
         public string? Password { get; set; }
         public int? GroupsId { get; set; }
         public Groups? Groups { get; set; }
+        public List<Sessions>? Sessions { get; set; } = new();
     }
 
     public class UsersServices : IServices<Users>

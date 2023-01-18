@@ -29,8 +29,8 @@ public class Authorization : Controller
         Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
         using ApplicationContext applicationContext = new();
 
-        UsersServices usersServices = new UsersServices() { db = applicationContext };
-            
+        UsersServices usersServices = new() { db = applicationContext };
+        
         try
         {
 
@@ -68,12 +68,12 @@ public class Authorization : Controller
                 userPropertyCreator.CreateUser();
 
                 using SessionsContext sessionsContext = new();
-                sessionsContext.sessions.Add(new Sessions()
+                sessionsContext.Sessions.Add(new Sessions()
                 {
-                    userid = person?.Id,
-                    userfirstname = person?.Firstname,
-                    userlastname = person?.Lastname,
-                    enterdate = DateTime.Now,
+                    UserId = person?.Id,
+                    UserFirstname = person?.Firstname,
+                    UserLastname = person?.Lastname,
+                    Enterdate = DateTime.Now,
                 });
                 sessionsContext.SaveChanges();
 
@@ -91,10 +91,9 @@ public class Authorization : Controller
     [HttpGet]
     public JsonResult? GetGroups()
     {
-        using ApplicationContext grpoupsContext = new();
-
         try
         {
+            using ApplicationContext grpoupsContext = new();
             List<Groups>? groups = grpoupsContext.Groups?.ToList();
             string[][]? groupsName = groups?.Select(x => new string[] {x.Name, x.Id.ToString()}).ToArray();
 

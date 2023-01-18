@@ -12,8 +12,7 @@ namespace Quizer.HelperClasses
         private readonly JwtSettings _options;
         public ClaimsCreator _claimsCreator;
         private string username;
-
-        public TokenSecurity(JwtSettings options, string username)
+        public TokenSecurity(JwtSettings options, string username = "")
         {
             _options = options;
             this.username = username;

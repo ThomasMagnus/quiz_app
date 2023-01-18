@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Quizer.Models;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
@@ -34,6 +35,7 @@ builder.Services.AddHttpLogging(logging =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,6 +79,7 @@ if (!app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseMiddleware<AuthorizationMiddleware>();
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpLogging();
@@ -85,9 +88,13 @@ app.MapControllerRoute(name: "Authorization", pattern: "{controller=Authorizatio
 app.MapControllerRoute(name: "GetGroups", pattern: "{controller=Authorization}/{action=GetGroups}");
 app.MapControllerRoute(name: "UserPageConnect", pattern: "{controller=UserPage}/{action=Index}");
 app.MapControllerRoute(name: "AdminAction", pattern:"{controller=Admin}/{action=Index}");
-app.MapControllerRoute(name: "AdminPage", pattern: "{controller=AdminPage}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "AdminPage", pattern: "{controller=AdminPage}/{action=Index}");
 app.MapControllerRoute(name: "GetSubjects", pattern: "{controller=UserPage}/{action=GetSubjects}");
 app.MapControllerRoute(name: "DetectToken", pattern: "{controller=Authorization}/{action=DetectToken}");
+app.MapControllerRoute(name: "TeacherAction", pattern: "{controller=Teacher}/{action=Index}");
+app.MapControllerRoute(name: "TeacherPage", pattern: "{controller=Teacher}/{action=TeacherPage}/{login?}");
+app.MapControllerRoute(name: "DetectAuthTeacher", pattern: "{controller=Teacher}/{action=DetectAuth}");
+
 
 app.MapFallbackToFile("index.html");
 

@@ -11,12 +11,13 @@ namespace Quizer.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public string? filepath { get; set; }
-        public DateTime? putdate { get; set; }
-        public int? subjectid { get; set; }
+        public int Id { get; set; }
+        public string? Filepath { get; set; }
+        public DateTime? Putdate { get; set; }
+        public int? SubjectId { get; set; }
         [ForeignKey("subjectid")]
-        public Subjects subjects { get; set; }
+        public Subjects? Subjects { get; set; }
+        public string? Filename { get; set; }
     }
 
     public class TasksServices : IServices<Tasks>, ISelection<Tasks>
@@ -29,12 +30,13 @@ namespace Quizer.Models
             {
                 Tasks task = new Tasks()
                 {
-                    filepath = value["filePath"].ToString(),
-                    putdate = DateTime.Parse(value["putDate"].ToString()),
-                    subjectid = int.Parse(value["subjectId"].ToString())
+                    Filepath = value["filePath"].ToString(),
+                    Putdate = DateTime.Parse(value["putDate"].ToString()),
+                    SubjectId = int.Parse(value["subjectId"].ToString()),
+                    Filename = new FileInfo(value["filePath"].ToString()).Name,
                 };
 
-                await db.tasks.AddAsync(task);
+                await db.Tasks.AddAsync(task);
                 await db.SaveChangesAsync();
 
                 Console.WriteLine("Задание добавлено!");
@@ -45,25 +47,30 @@ namespace Quizer.Models
             }
         }
 
-        async public Task<List<Tasks>> EntityLIst() => await db.tasks.ToListAsync();
+        async public Task<List<Tasks>> EntityLIst(ApplicationContext db) => await db.Tasks.ToListAsync();
 
-        public IEnumerable<Tasks> GetEntity() => db.tasks.Select(x => x);
+        public Task<List<Tasks>> EntityLIst()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tasks> GetEntity() => db.Tasks.Select(x => x);
 
         public async Task<Tasks?> GetEntity(Dictionary<string, object> value)
         {
-            if (value.ContainsKey("subjectsId")) { return await db.tasks.FirstOrDefaultAsync(x => x.subjectid == int.Parse(value["subjectsId"].ToString())); }
+            if (value.ContainsKey("subjectId")) { return await db.Tasks.FirstOrDefaultAsync(x => x.SubjectId == int.Parse(value["subjectId"].ToString())); }
             throw new Exception("Предмет не найден");
         }
 
-        public dynamic SelectionValues(Dictionary<string, object> value)
+        public List<Tasks> SelectionValues(Dictionary<string, object> value)
         {
             try
             {
-                return db.tasks.Where(x => x.id == int.Parse(value["subjectId"].ToString()));
+                return db.Tasks.Where(x => x.SubjectId == int.Parse(value["subjectId"].ToString())).ToList<Tasks>();
             }
             catch
             {
-                return "Предмет не найден";
+                return null;
             }
         }
     }

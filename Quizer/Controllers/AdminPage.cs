@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Quizer.Models;
 
 namespace Quizer.Controllers
 {
@@ -7,9 +8,14 @@ namespace Quizer.Controllers
     {
         [HttpGet]
         [Authorize]
-        public void Index()
+        public JsonResult Index()
         {
+            AdminsContext adminContext = new();
+            List<Admin> adminList = adminContext.Admin.ToList();
+
+
             Console.WriteLine("Admin page");
+            return Json("Admin Page");
         }
     }
 }

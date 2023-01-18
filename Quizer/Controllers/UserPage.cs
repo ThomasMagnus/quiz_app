@@ -4,6 +4,7 @@ using Quizer.Models;
 using Quizer.HelperClasses;
 using System.Text.RegularExpressions;
 using Quizer.Context;
+using System.Text.Json;
 
 namespace Quizer.Controllers
 {
@@ -41,29 +42,60 @@ namespace Quizer.Controllers
             }
         }
 
-        public IActionResult GetUserProps()
+        [HttpPost]
+        public IActionResult GetUserProps([FromBody] JsonElement value)
         {
-            var userProperty = new
-            {
-                firstname = UserProperty.firstname,
-                lastname = UserProperty.lastname,
-                group = UserProperty.group,
-                id = UserProperty.id
-            };
+            using (SessionsContext sessionContext = new())
+            using (ApplicationContext applicationContext = new())
 
-            return Json(userProperty);
+                try
+                {
+
+                    List<Sessions>? sessions = sessionContext?.Sessions?.ToList();
+                    Sessions? session = sessions?.FirstOrDefault(x => x.Id == 3);
+                    GroupsServices groupsServices = new GroupsServices() { db = applicationContext };
+
+                    string? groupName = session?.User?.Groups?.Name;
+                    Console.WriteLine(groupName);
+
+                    var userProperty = new
+                    {
+                        firstname = session?.UserFirstname,
+                        lastname = session?.UserLastname,
+                        group = groupName,
+                        id = session?.Id
+                    };
+
+                    return Json(userProperty);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return Json(ex);
+                }
         }
 
-        public async Task<IActionResult> GetTasks()
+        public IActionResult GetTasks()
         {
-            using ApplicationContext applicationContext = new();
-            TasksServices tasksServices = new TasksServices() { db = applicationContext };
-            Tasks? task = await tasksServices.GetEntity(new Dictionary<string, object>()
+            try
             {
-                {"subjectsId", 1},
-            });
+                using ApplicationContext applicationContext = new();
+                TasksServices tasksServices = new TasksServices() { db = applicationContext };
 
-            return Json(task);
+                List<Tasks>? tasks = tasksServices.SelectionValues(new Dictionary<string, object>()
+                {
+                    {"subjectId", 1},
+                }).OrderByDescending(x => x.Putdate).ToList();
+
+                return Json(tasks);
+                //return Json("Запрос успешно прошёл");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка в Tasks");
+                Console.WriteLine(ex.ToString());
+                return Json("Произошла ошибка в запросе Tasks");
+            }
         }
 
     }

@@ -25,7 +25,11 @@ class MyForm extends Component{
                             )}
                         </Form.Select>
                     </Form.Group>
-                : ""}
+                :
+                    <Form.Group className="mb-2" controlId="formBasicEmail">
+                        <Form.Control type="text" name="login" placeholder="Введите логин" onChange={this.props.onChangeProperties}/>
+                    </Form.Group>
+                }
                 <Form.Group className="mb-2" controlId="formBasicPassword">
                     <Form.Control type="password" name="password" placeholder="Пароль" onChange={this.props.onChangeProperties}/>
                 </Form.Group>

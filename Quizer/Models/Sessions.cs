@@ -1,23 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quizer.Context;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quizer.Models
 {
     public class Sessions
     {
-        public int? id { get; set; }
-        public int? userid { get; set; }
-        public string? userfirstname { get; set; }
-        public string? userlastname { get; set; }
-        public DateTime? enterdate { get; set; }
-        public List<Users> Users { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
+        public int? UserId { get; set; }
+        public string? UserFirstname { get; set; }
+        public string? UserLastname { get; set; }
+        public DateTime? Enterdate { get; set; }
+        [ForeignKey("UserId")]
+        public Users? User { get; set; }
     }
 
     public class SessionsContext : ApplicationContext
     {
-        public DbSet<Sessions> sessions { get; set; }
+        public DbSet<Sessions> Sessions { get; set; }
 
         public SessionsContext()
-            :base() { }
+            :base() {
+            Database.EnsureCreated();
+        }
     }
 }
