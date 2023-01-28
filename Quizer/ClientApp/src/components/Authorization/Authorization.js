@@ -65,8 +65,6 @@ class Authorization extends React.Component {
             .then(data => this.setState({groups: data}))
 
         this.detectToken()
-
-        console.log(this.state.authorize)
     }
 
     render() {

@@ -7,6 +7,8 @@ import Main from "./components/Main/Main";
 import AdminPage from "./components/AdminPage/Admin/AdminPage";
 import TeacherPage from "./components/TeacherPage/TeacherPage";
 import TeacherAuth from "./components/TeacherAuth/TeacherAuth";
+import './app.scss'
+import FirstPage from "./components/FirstPage/FirstPage";
 
 export default class App extends Component {
 
@@ -15,16 +17,15 @@ export default class App extends Component {
     state = {
         authorize: localStorage.getItem("accessToken" || 'accessAdminToken' || 'accessTokenTeacher') || '',
         userId: localStorage.getItem('userId') || '',
-        teacherData: JSON.parse(localStorage.getItem('data')) || {}
-    }
-
-    componentDidMount() {
-        console.log(this.state.teacherData['login'])
+        teacherData: JSON.parse(localStorage.getItem('data')) || {},
+        tokenWork: false,
+        loader: false
     }
 
     postData = async (e, urlToAction, urlToPage, state, tokenName) => {
         e.preventDefault()
         const data = JSON.stringify(state)
+        this.setState({loader: true})
         await fetch(urlToAction, {
             method: 'POST',
             body: data,
@@ -36,31 +37,42 @@ export default class App extends Component {
             }
         })
         .then(response => {
-            if (response.ok) return response.json()
+            if (response.ok) {
+                return response.json()
+            }
             else return response
         })
         .then(data => {
-            if (data[tokenName]) {
-                localStorage.setItem(tokenName, data[tokenName])
-                localStorage.setItem('userId', data['id'])
+            try {
+                if (data[tokenName]) {
+                    localStorage.setItem(tokenName, data[tokenName])
+                    localStorage.setItem('userId', data['id'])
 
-                localStorage.setItem('data', JSON.stringify(data))
+                    localStorage.setItem('data', JSON.stringify(data))
 
-                this.setState({teacherData: data})
+                    this.setState({teacherData: data})
+                    this.setState({tokenWork: true})
 
-                console.log(this.state.teacherData)
-
-                fetch(urlToPage, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem(tokenName)}`
-                    }
-                })
-                    .then(response => {
-                        this.setState({authorize: true})
+                    fetch(urlToPage, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem(tokenName)}`
+                        }
                     })
-            } else {
-                console.log(data)
+                        .then(response => {
+                            this.setState({authorize: true})
+                            document.location.reload()
+                        })
+                        .catch(e => {
+                            console.log(e)
+                            this.setState({loader: true})
+                        })
+                } else {
+                    console.log(data)
+                }
+            }catch (ex) {
+                console.log(ex)
+                this.setState({loader: false})
             }
 
         })
@@ -68,12 +80,13 @@ export default class App extends Component {
 
     render() {
         return (
-            <Main>
+            <Main loader={this.state.loader}>
                 <Routes>
-                    <Route path="/" element={<Authorization admin={false} postData={this.postData} appState={this.state}/>}/>
-                    <Route path="/UserPage/Index" element={<UserPage/>}/>
+                    <Route path="/" element={<FirstPage/>}/>
+                    <Route path="/authStudent" element={<Authorization admin={false} postData={this.postData} appState={this.state}/>}/>
                     <Route path="/adm" element={<AdminLayout admin={true} postData={this.postData} appState={this.state}/>}/>
                     <Route path="/teach" element={<TeacherAuth admin={true} postData={this.postData} appState={this.state}/>}/>
+                    <Route path="/UserPage/Index" element={<UserPage/>}/>
                     <Route path={"/Teacher/TeacherPage/" + this.state.teacherData['login']} element={<TeacherPage appState={this.state} url={this.serverURL}/>}/>
                 </Routes>
             </Main>

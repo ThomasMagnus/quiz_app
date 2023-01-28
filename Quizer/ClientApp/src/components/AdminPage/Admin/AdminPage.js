@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Navigate} from "react-router-dom";
-import {Form, Row, Col, Button, Container, ListGroup, Placeholder, Stack} from "react-bootstrap";
+import {Row, Col, Button, Container, ListGroup, Placeholder, Stack} from "react-bootstrap";
 import {getPage, detectLocalStorage} from "../../../Services/services";
 import './adminPage.scss'
 

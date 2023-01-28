@@ -14,10 +14,9 @@ export const detectLocalStorage = async (tokenName, detectAuthUrl) => {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem(tokenName)}`
             }
-        })
-            .then(data => {
-                if (data.status === 200) {
-                    console.log(data)
+        }).then(response => {
+                if (response.statusCode === 200) {
+                    this.setState({auth: true})
                 }
             })
     }

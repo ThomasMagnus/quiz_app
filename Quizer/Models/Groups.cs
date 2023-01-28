@@ -44,7 +44,7 @@ public class GroupsServices : IServices<Groups>
 
     async public Task<Groups?> GetEntity(Dictionary<string, object> value)
     {
-        if (value.ContainsKey("name")) return await db.Groups.FirstOrDefaultAsync(predicate: x => x.Name == value["name"]);
+        if (value.ContainsKey("name")) return await db.Groups.FirstOrDefaultAsync(predicate: x => x.Name == value["name"].ToString());
 
         throw new Exception("Не передано название группы");
     }

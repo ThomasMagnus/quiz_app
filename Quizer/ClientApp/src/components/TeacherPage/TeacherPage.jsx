@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {Navigate} from "react-router-dom";
-import {Form, Row, Col, Button, Container, ListGroup, Placeholder, Stack} from "react-bootstrap";
-// import {getPage, detectLocalStorage} from "../../../Services/services";
-import {detectLocalStorage, getPage} from "../../Services/services";
+import {Row, Col, Button, Container, ListGroup, Placeholder, Stack, CloseButton, Modal} from "react-bootstrap";
+import {getPage} from "../../Services/services";
+import './TeacherPage.scss'
+import MyVerticallyCenteredModal from "../Modal/Modal";
+
 
 class TeacherPage extends Component {
     // eslint-disable-next-line no-useless-constructor
@@ -11,50 +13,83 @@ class TeacherPage extends Component {
     }
 
     state = {
-        data: {},
-        auth: !!localStorage.getItem('data')
+        data: JSON.parse(localStorage.getItem('data')),
+        auth: !!localStorage.getItem('data'),
+        tokenWork: false,
+        modal: false,
+        modalData: {
+            subject: '',
+            group: ''
+        }
     }
 
     componentDidMount() {
-        // this.detectAuth()
-        console.log(this.state)
-        getPage("http://localhost:5276/Teacher/TeacherPage/" + this.props.appState.teacherData['login'], 'accessTokenTeacher')
-            .then(data => {
-                this.setState({data: data})
-                console.log(data)
-            })
-
-
-        if (sessionStorage.getItem('data')) {
-            const data = JSON.parse(sessionStorage.getItem('data'))
-            this.setState({'data': data})
-        }
-        fetch(this.props.url + 'Teacher/DetectAuth', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessTokenTeacher')}`
-            }
-        })
+        this.detectAuth()
             .then(response => {
                 console.log(response)
+                if (response.status === 200) {
+                    this.setState({tokenWork: true})
+                } else {
+                    localStorage.clear()
+                    document.location = '/'
+                }
             })
+        // getPage("http://localhost:5276/Teacher/TeacherPage/" + this.props.appState.teacherData['login'], 'accessTokenTeacher')
+        //     .then(data => {
+        //         this.setState({data: data})
+        //     })
+        
     }
 
-    // detectAuth = async () => {
-    //     await fetch(this.props.url + '/Teacher/DetectAuth')
-    //         .then(data => console.log(data))
-    // }
+    detectAuth = async () => {
+        return await fetch(this.props.url + 'Authorization/DetectToken', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessTokenTeacher')}`,
+                'Content-type': 'application/json'
+            },
+        })
+    }
+
+    logOut(e) {
+        e.preventDefault()
+        localStorage.clear()
+        document.location = '/teach'
+    }
+
+    showHideModal = (e) => {
+        const target = e.target
+        if (!target.classList.contains('.admin__close')) {
+            if (this.state.modal) {
+                this.setState({modal: false})
+            } else {
+                this.setState({
+                    modalData: {
+                        ...this.state.modalData,
+                        subject: target.textContent
+                    }
+                })
+                this.setState({modal: true})
+            }
+        }
+    }
+
 
     render() {
         return (
             <>
                 {this.state.auth ?
                     <>
+                        <MyVerticallyCenteredModal
+                            show={this.state.modal}
+                            onHide={this.showHideModal}
+                            subject={this.state.modalData.subject}/>
                         <Container>
                             <Row>
                                 <Col>
                                     <h1>Личный кабинет</h1>
-                                    <p className="admin__name">Преподаватель: <span>{this.props.appState.teacherData['username']}</span></p>
+                                    <p className="admin__name">Преподаватель: <span>{this.props.appState.teacherData['username']}</span>
+                                    </p>
                                 </Col>
                                 <Col>
                                     <div className="admin__info">
@@ -70,23 +105,33 @@ class TeacherPage extends Component {
                                     <h3>Ваши предметы:</h3>
                                     <div className="admin__overview overflow-auto">
                                         <ListGroup className='mb-3'>
-                                            <ListGroup.Item action variant="light">
-                                                <Placeholder animation="glow">
-                                                    <Placeholder xs={6}/>
-                                                </Placeholder>
-                                            </ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Dapibus ac facilisis
-                                                in</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Morbi leo risus</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Porta ac consectetur
-                                                ac</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Vestibulum at eros</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Dapibus ac facilisis
-                                                in</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Morbi leo risus</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Porta ac consectetur
-                                                ac</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Vestibulum at eros</ListGroup.Item>
+                                            {/* {
+                                                this.state.data['props'] ? 
+                                                this.state.data['props'].map((item, i) => (
+                                                    <ListGroup.Item className="admin__item" variant="light" key={i}>
+                                                        Группа: {item[1]}
+                                                        <br />
+                                                        Предметы:
+                                                        <br />
+                                                        {item[0]}
+                                                        <CloseButton className="admin__close" />
+                                                    </ListGroup.Item>
+                                                )) : ''
+                                            } */}
+                                            {
+                                                this.state.data['props'] ?
+                                                this.state.data['props']['subjects'].map((item, i) => (
+                                                    <ListGroup.Item className="admin__item" action variant="light" key={i} onClick={this.showHideModal}>
+                                                        {item}
+                                                        <CloseButton className="admin__close" />
+                                                    </ListGroup.Item>
+                                                )) :
+                                                  <ListGroup.Item action variant="light">
+                                                    <Placeholder animation="glow">
+                                                        <Placeholder xs={6}/>
+                                                    </Placeholder>
+                                                </ListGroup.Item>
+                                            }
                                         </ListGroup>
                                     </div>
                                     <Button variant="primary" className='mt-3'>Добавить</Button>
@@ -95,23 +140,20 @@ class TeacherPage extends Component {
                                     <h3>Ваши группы:</h3>
                                     <div className="admin__overview overflow-auto">
                                         <ListGroup className='mb-3'>
-                                            <ListGroup.Item action variant="light">
-                                                <Placeholder animation="glow">
-                                                    <Placeholder xs={6}/>
-                                                </Placeholder>
-                                            </ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Dapibus ac facilisis
-                                                in</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Morbi leo risus</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Porta ac consectetur
-                                                ac</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Vestibulum at eros</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Dapibus ac facilisis
-                                                in</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Morbi leo risus</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Porta ac consectetur
-                                                ac</ListGroup.Item>
-                                            <ListGroup.Item action variant="light">Vestibulum at eros</ListGroup.Item>
+                                            {
+                                                this.state.data['props'] ?
+                                                this.state.data['props']['groups'].map((item, i) => (
+                                                    <ListGroup.Item action variant="light" key={i}>
+                                                        {item}
+                                                        <CloseButton className="admin__close" />
+                                                    </ListGroup.Item>
+                                                )) :
+                                                  <ListGroup.Item action variant="light">
+                                                    <Placeholder animation="glow">
+                                                        <Placeholder xs={6}/>
+                                                    </Placeholder>
+                                                </ListGroup.Item>
+                                            }
                                         </ListGroup>
                                     </div>
                                     <Stack direction='horizontal' className='mt-3'>

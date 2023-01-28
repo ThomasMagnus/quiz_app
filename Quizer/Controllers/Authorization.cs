@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Quizer.HelperClasses;
 using Quizer.Context;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Quizer.Controllers;
 
@@ -106,13 +107,13 @@ public class Authorization : Controller
         }
     }
 
-    [HttpPost]
-    public IActionResult DetectToken([FromBody] JsonElement value)
+    [HttpGet]
+    [Authorize]
+    public JsonResult DetectToken()
     {
-        Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
-        bool result = data?["accessToken"] == _token;
+        Console.WriteLine("Auth success");
         return Json(new Dictionary<string, bool> {
-            {"access", result}
+            {"access", true}
         });
     }
 

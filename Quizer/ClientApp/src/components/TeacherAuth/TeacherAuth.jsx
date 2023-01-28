@@ -16,7 +16,7 @@ class TeacherAuth extends React.Component {
                 login: '',
                 password: ''
             },
-            auth: !!localStorage.getItem('data')
+            auth: false,
         }
     }
 
@@ -26,6 +26,7 @@ class TeacherAuth extends React.Component {
     }
 
     componentDidMount() {
+        detectLocalStorage('accessTokenTeacher', '/Authorization/DetectToken')
         if (localStorage.getItem('data')) this.setState({auth: true})
     }
 

@@ -12,5 +12,15 @@
             max-height: 220px;
             overflow: scroll;
         }
+        &__item {
+            position: relative;
+        }
+        &__close {
+            position: absolute;
+            top: 8px;
+            right: 0;
+            z-index: 4;
+            width: 20px;
+        }
     }
 }
