@@ -59,9 +59,10 @@ namespace Quizer.Models
             try
             {
                 Users? user = await db.Users.FirstOrDefaultAsync(x => x.Firstname.ToLower() == value["firstname"].ToString().ToLower()
-                                                            && x.Lastname.ToLower() == value["lastname"].ToString().ToLower()
-                                                            && x.Password == value["password"].ToString()
-                                                            && x.GroupsId == int.Parse(value["group"].ToString()));
+                                                                    && x.Lastname.ToLower() == value["lastname"].ToString().ToLower()
+                                                                    && x.Patronymic.ToLower() == value["patronymic"].ToString().ToLower()
+                                                                    && x.Password == value["password"].ToString()
+                                                                    && x.GroupsId == int.Parse(value["group"].ToString()));
 
                 return user;
             }

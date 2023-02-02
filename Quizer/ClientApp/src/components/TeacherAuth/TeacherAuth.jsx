@@ -2,6 +2,8 @@ import React from "react";
 import {Navigate} from "react-router-dom";
 import MyForm from "../MyForm/MyForm";
 import {detectLocalStorage, onChangeProperties} from "../../Services/services";
+import Alert from 'react-bootstrap/Alert';
+import './teacherAuth.scss'
 
 class TeacherAuth extends React.Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class TeacherAuth extends React.Component {
                 password: ''
             },
             auth: false,
+            alert: false
         }
     }
 
@@ -36,6 +39,11 @@ class TeacherAuth extends React.Component {
                 <Navigate to={'/Teacher/TeacherPage/' + this.props.appState.teacherData['login']}/>
                     :
                 <section className="authorization">
+                    {this.props.text ?
+                        <Alert key='danger' variant='danger' className='teacher__alert'>
+                            {this.props.text}
+                        </Alert> : ''
+                    }
                     <h1>Авторизация преподавателя</h1>
                     <MyForm admin={this.admin} onChangeProperties={this.onChangeProperties}
                             postData={this.postDataTeacher}/>

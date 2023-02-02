@@ -5,16 +5,18 @@ using Microsoft.Extensions.Options;
 using Quizer.HelperClasses;
 using Quizer.Models;
 using Quizer.Context;
+using System;
 
 namespace Quizer.Controllers
 {
     public class TeacherController : Controller
     {
         private readonly JwtSettings? _jwtSettings;
+        private readonly ILogger<TeacherController> _logger;
 
-        public TeacherController(IOptions<JwtSettings> jwtSettings) => _jwtSettings = jwtSettings.Value;
+        public TeacherController(IOptions<JwtSettings> jwtSettings, ILogger<TeacherController> logger) => (_jwtSettings, _logger) = (jwtSettings.Value, logger);
 
-        [HttpPost]
+        [HttpPost, Route("Teacher/Index")]
         public async Task<IActionResult> Index()
         {
             try
@@ -58,16 +60,18 @@ namespace Quizer.Controllers
                     props = teacherProps
                 };
 
+                Sessions.CreateSession(teacher?.id, teacher.fname, teacher?.lname, DateTime.Now);
+
                 return Json(dataAnswer);
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
                 return Json("Ошибка на сервере");
             }
         }
 
-        [HttpGet]
+        [HttpGet, Route("Teacher/TeacherPage")]
         [Authorize]
         public void TeacherPage()
         {

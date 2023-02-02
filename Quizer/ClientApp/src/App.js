@@ -4,11 +4,11 @@ import AdminLayout from "./components/AdminPage/AdminLayout/AdminLayout";
 import {Route, Routes} from "react-router-dom";
 import UserPage from "./components/UserPage/UserPage";
 import Main from "./components/Main/Main";
-import AdminPage from "./components/AdminPage/Admin/AdminPage";
 import TeacherPage from "./components/TeacherPage/TeacherPage";
 import TeacherAuth from "./components/TeacherAuth/TeacherAuth";
 import './app.scss'
 import FirstPage from "./components/FirstPage/FirstPage";
+import AddTask from "./components/AddTask/AddTask";
 
 export default class App extends Component {
 
@@ -19,7 +19,8 @@ export default class App extends Component {
         userId: localStorage.getItem('userId') || '',
         teacherData: JSON.parse(localStorage.getItem('data')) || {},
         tokenWork: false,
-        loader: false
+        loader: false,
+        statusText: ''
     }
 
     postData = async (e, urlToAction, urlToPage, state, tokenName) => {
@@ -44,10 +45,13 @@ export default class App extends Component {
         })
         .then(data => {
             try {
+                if (data['text']) {
+                    this.setState({loader: false})
+                    this.setState({statusText: data['text']})
+                }
                 if (data[tokenName]) {
                     localStorage.setItem(tokenName, data[tokenName])
                     localStorage.setItem('userId', data['id'])
-
                     localStorage.setItem('data', JSON.stringify(data))
 
                     this.setState({teacherData: data})
@@ -83,11 +87,12 @@ export default class App extends Component {
             <Main loader={this.state.loader}>
                 <Routes>
                     <Route path="/" element={<FirstPage/>}/>
-                    <Route path="/authStudent" element={<Authorization admin={false} postData={this.postData} appState={this.state}/>}/>
+                    <Route path="/authStudent" element={<Authorization admin={false} postData={this.postData} appState={this.state} text={this.state.statusText}/>}/>
                     <Route path="/adm" element={<AdminLayout admin={true} postData={this.postData} appState={this.state}/>}/>
-                    <Route path="/teach" element={<TeacherAuth admin={true} postData={this.postData} appState={this.state}/>}/>
+                    <Route path="/teach" element={<TeacherAuth admin={true} postData={this.postData} appState={this.state} text={this.state.statusText}/>}/>
                     <Route path="/UserPage/Index" element={<UserPage/>}/>
                     <Route path={"/Teacher/TeacherPage/" + this.state.teacherData['login']} element={<TeacherPage appState={this.state} url={this.serverURL}/>}/>
+                    <Route path={"/Teacher/AddTask"} element={<AddTask/>}/>
                 </Routes>
             </Main>
         );

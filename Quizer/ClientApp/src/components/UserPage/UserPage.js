@@ -74,7 +74,6 @@ class UserPage extends React.Component {
     }
 
     render() {
-        console.log(Array(...this.state.fileDates))
         return (
             <>
                 {

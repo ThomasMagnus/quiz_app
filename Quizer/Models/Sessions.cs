@@ -16,6 +16,22 @@ namespace Quizer.Models
         public DateTime? Enterdate { get; set; }
         [ForeignKey("UserId")]
         public Users? User { get; set; }
+
+        public static async void CreateSession(int? UserId, string? UserFirstname, string? UserLastname, DateTime? EnterData)
+        {
+            using SessionsContext sessionsContext = new();
+
+            Sessions sessions = new Sessions()
+            {
+                UserId = UserId,
+                UserFirstname = UserFirstname,
+                UserLastname = UserLastname,
+                Enterdate = EnterData
+            };
+
+            sessionsContext.Add(sessions);
+            await sessionsContext.SaveChangesAsync();
+        }
     }
 
     public class SessionsContext : ApplicationContext

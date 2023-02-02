@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Quizer.Models;
 using Microsoft.AspNetCore.Authorization;
+using Quizer.HelperClasses;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logget.txt"));
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
@@ -20,17 +22,6 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("https://localhost:44491").AllowAnyHeader().AllowAnyMethod();
     });
-});
-
-builder.Services.AddHttpLogging(logging =>
-{
-    logging.LoggingFields = HttpLoggingFields.All;
-    logging.RequestHeaders.Add("sec-ch-ua");
-    logging.ResponseHeaders.Add("MyResponseLogging");
-    logging.MediaTypeOptions.AddText("application/javascript");
-    logging.RequestBodyLogLimit = 4096;
-    logging.ResponseBodyLogLimit = 4096;
-
 });
 
 builder.Services.AddControllersWithViews();
@@ -77,22 +68,17 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseMiddleware<AuthorizationMiddleware>();
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpLogging();
 
-app.MapControllerRoute(name: "Authorization", pattern: "{controller=Authorization}/{action=Auth}");
-app.MapControllerRoute(name: "GetGroups", pattern: "{controller=Authorization}/{action=GetGroups}");
 app.MapControllerRoute(name: "UserPageConnect", pattern: "{controller=UserPage}/{action=Index}");
 app.MapControllerRoute(name: "AdminAction", pattern:"{controller=Admin}/{action=Index}");
 app.MapControllerRoute(name: "AdminPage", pattern: "{controller=AdminPage}/{action=Index}");
 app.MapControllerRoute(name: "GetSubjects", pattern: "{controller=UserPage}/{action=GetSubjects}");
 app.MapControllerRoute(name: "DetectToken", pattern: "{controller=Authorization}/{action=DetectToken}");
-app.MapControllerRoute(name: "TeacherAction", pattern: "{controller=Teacher}/{action=Index}");
-app.MapControllerRoute(name: "TeacherPage", pattern: "{controller=Teacher}/{action=TeacherPage}/{login?}");
 app.MapControllerRoute(name: "DetectAuthTeacher", pattern: "{controller=Teacher}/{action=DetectAuth}");
 
 

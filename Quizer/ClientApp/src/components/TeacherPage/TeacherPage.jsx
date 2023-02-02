@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {Row, Col, Button, Container, ListGroup, Placeholder, Stack, CloseButton, Modal} from "react-bootstrap";
 import {getPage} from "../../Services/services";
 import './TeacherPage.scss'
@@ -93,8 +93,8 @@ class TeacherPage extends Component {
                                 </Col>
                                 <Col>
                                     <div className="admin__info">
-                                        <p><Button variant="primary">Опубликовать задание</Button></p>
-                                        <Button variant="primary" onClick={this.logOut}>Выйти</Button>
+                                        <Link to={'/Teacher/AddTask'}><Button variant="primary" className="w-10">Опубликовать задание</Button></Link>
+                                        <Button variant="primary" onClick={this.logOut} className="admin__btn-exit">Выйти</Button>
                                     </div>
                                 </Col>
                             </Row>

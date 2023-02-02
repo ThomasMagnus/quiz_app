@@ -18,32 +18,53 @@ public class Authorization : Controller
 
     private readonly JwtSettings _options;
     private string _token;
+    private readonly ILogger<Authorization> _logger;
 
-    public Authorization(IOptions<JwtSettings> options)
+    public Authorization(IOptions<JwtSettings> options, ILogger<Authorization> logger)
     {
+        _logger = logger;
         _options = options.Value;
     }
 
-    [HttpPost]
-    public async Task<IActionResult>? Auth([FromBody] JsonElement value)
+    [HttpPost, Route("Authorization/Auth")]
+    public async Task<IActionResult>? Auth()
     {
-        Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);
         using ApplicationContext applicationContext = new();
 
         UsersServices usersServices = new() { db = applicationContext };
-        
+        Console.WriteLine("Inner 1");
         try
         {
+            Users? userData = await HttpContext.Request.ReadFromJsonAsync<Users>();
+
+            //Users? person = await usersServices.GetEntity(new Dictionary<string, object>
+            //{
+            //    {"firstname", data?["firstname"].ToLower()},
+            //    {"lastname",  data?["lastname"].ToLower()},
+            //    {"password", data?["password"]},
+            //    {"group", Int32.Parse(data?["group"].ToString())}
+            //});
+
+            Console.WriteLine("Inner 2");
 
             Users? person = await usersServices.GetEntity(new Dictionary<string, object>
             {
-                {"firstname", data?["firstname"].ToLower()},
-                {"lastname",  data?["lastname"].ToLower()},
-                {"password", data?["password"]},
-                {"group", Int32.Parse(data?["group"].ToString())}
+                    {"firstname", userData?.Firstname.ToLower()},
+                    {"lastname",  userData?.Lastname.ToLower()},
+                    {"password", int.Parse(userData?.Password)},
+                    {"group", userData?.GroupsId ?? '1'}
             });
                 
-            if (person is null) { return Json("Пользователь не найден"); }
+            if (person is null) {
+                            
+                var response = new
+                {
+                    status = false,
+                    text = "Пользователь не найден"
+                };
+
+                return Json(response);
+            }
             else
             {
                 string username = $"{person?.Firstname?.Replace(" ", "")} " +
@@ -63,20 +84,12 @@ public class Authorization : Controller
                 UserPropertyCreator userPropertyCreator = new (
                     firstname: person?.Firstname,
                     lastname: person?.Lastname,
-                    group: applicationContext?.Groups?.ToList().First(x => x.Id == Int32.Parse(data?["group"])).Name,
+                    group: applicationContext?.Groups?.ToList().First(x => x.Id == userData?.GroupsId).Name,
                     id: person?.Id);
 
                 userPropertyCreator.CreateUser();
 
-                using SessionsContext sessionsContext = new();
-                sessionsContext.Sessions.Add(new Sessions()
-                {
-                    UserId = person?.Id,
-                    UserFirstname = person?.Firstname,
-                    UserLastname = person?.Lastname,
-                    Enterdate = DateTime.Now,
-                });
-                sessionsContext.SaveChanges();
+                Sessions.CreateSession(person?.Id, person?.Firstname, person?.Lastname, DateTime.Now);
 
                 return Json(response);
             }
@@ -84,12 +97,17 @@ public class Authorization : Controller
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.ToString());
-            return Json("Ошибка авторизации");
+            _logger.LogError(ex.ToString());
+            var response = new
+            {
+                status = false,
+                text = "Ошибка авторизации"
+            };
+            return Json(response);
         }
     }
 
-    [HttpGet]
+    [HttpGet, Route("Authorization/GetGroups")]
     public JsonResult? GetGroups()
     {
         try

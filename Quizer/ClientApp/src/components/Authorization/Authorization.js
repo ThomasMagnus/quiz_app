@@ -2,19 +2,22 @@
 import {Navigate} from "react-router-dom"
 import MyForm from "../MyForm/MyForm";
 import './Authorization.scss'
+import Alert from 'react-bootstrap/Alert';
 
 class Authorization extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             form: {
-                firstname: '',
-                lastname: '',
-                group: '',
-                password: ''
+                Firstname: '',
+                Lastname: '',
+                Patronymic: '',
+                GroupsId: '',
+                Password: ''
             },
             groups: [],
-            authorize: !!localStorage.getItem('data')
+            authorize: !!localStorage.getItem('data'),
+            alert: false
         }
         this.admin = props.admin
     }
@@ -24,10 +27,11 @@ class Authorization extends React.Component {
         this.setState({
             form: {
                 ...this.state.form,
-                firstname: target.name === 'firstname' ? target.value.toLowerCase() : this.state.form.firstname,
-                lastname: target.name === 'lastname' ? target.value.toLowerCase() : this.state.form.lastname,
-                group: target.name === 'group' ? target.options[target.selectedIndex].dataset.id : this.state.form.group,
-                password: target.name === 'password' ? target.value : this.state.form.password,
+                Firstname: target.name === 'firstname' ? target.value.toLowerCase() : this.state.form.Firstname,
+                Lastname: target.name === 'lastname' ? target.value.toLowerCase() : this.state.form.Lastname,
+                Patronymic: target.name === 'patronymic' ? target.value.toLowerCase() : this.state.form.Patronymic,
+                GroupsId: target.name === 'group' ? target.options[target.selectedIndex].dataset.id : this.state.form.GroupsId,
+                Password: target.name === 'password' ? target.value : this.state.form.Password,
             }
         })
     }
@@ -55,6 +59,7 @@ class Authorization extends React.Component {
     postDataAuthUser = (e, urlToAction = 'http://localhost:5276/Authorization/Auth',
                         urlToPage = 'http://localhost:5276/UserPage/Index') => {
         this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessToken')
+        console.log(JSON.stringify(this.state.form))
     }
 
     getGroups = async () => await fetch('http://localhost:5276/Authorization/GetGroups')
@@ -69,9 +74,13 @@ class Authorization extends React.Component {
 
     render() {
         return (
-            this.props.appState.authorize ? <Navigate to={"UserPage/Index"}/>
+            this.props.appState.authorize ? <Navigate to="/UserPage/Index"/>
                 :
                 <section className="authorization">
+                    {this.props.text ?
+                        <Alert key='danger' variant='danger' className='teacher__alert'>
+                            {this.props.text}
+                        </Alert> : ''}
                     <h1>Авторизация</h1>
                     <MyForm admin={this.admin} groups={this.state.groups} postData={this.postDataAuthUser}
                             onChangeProperties={this.onChangeProperties}/>

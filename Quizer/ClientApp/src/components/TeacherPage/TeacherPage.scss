@@ -3,7 +3,13 @@
 
     .admin {
         &__info {
-            text-align: end;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+        &__btn-exit {
+            display: block;
+            margin-top: 10px;
         }
         &__name {
             font-size: 20px;
