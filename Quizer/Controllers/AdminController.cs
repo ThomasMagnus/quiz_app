@@ -16,7 +16,7 @@ namespace Quizer.Controllers
             _options = options.Value;
         }
 
-        [HttpPost]
+        [HttpPost, Route("[controller]/Index")]
         public IActionResult Index([FromBody] JsonElement value)
         {
             Dictionary<string, string>? data = JsonSerializer.Deserialize<Dictionary<string, string>>(value);

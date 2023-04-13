@@ -30,7 +30,7 @@ namespace Quizer.HelperClasses
                 claims: identity.Claims,
                 expires: timeNow.Add(TimeSpan.FromDays(1)),
                 signingCredentials: new SigningCredentials(
-                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_options.SecretKey)),
+                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_options?.SecretKey!)),
                         SecurityAlgorithms.HmacSha256
                     )
             );

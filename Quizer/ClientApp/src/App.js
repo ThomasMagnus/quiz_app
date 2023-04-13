@@ -53,6 +53,7 @@ export default class App extends Component {
                     localStorage.setItem(tokenName, data[tokenName])
                     localStorage.setItem('userId', data['id'])
                     localStorage.setItem('data', JSON.stringify(data))
+                    localStorage.setItem('props', JSON.stringify(data['props']))
 
                     this.setState({teacherData: data})
                     this.setState({tokenWork: true})
@@ -68,17 +69,18 @@ export default class App extends Component {
                             document.location.reload()
                         })
                         .catch(e => {
-                            console.log(e)
+                            this.setState({statusText: "Ошибка авторизации"})
                             this.setState({loader: true})
                         })
                 } else {
-                    console.log(data)
+                    this.setState({statusText: data})
+                    this.setState({loader: false})
                 }
             }catch (ex) {
                 console.log(ex)
+                this.setState({statusText: "Ошибка авторизации"})
                 this.setState({loader: false})
             }
-
         })
     }
 
@@ -92,7 +94,7 @@ export default class App extends Component {
                     <Route path="/teach" element={<TeacherAuth admin={true} postData={this.postData} appState={this.state} text={this.state.statusText}/>}/>
                     <Route path="/UserPage/Index" element={<UserPage/>}/>
                     <Route path={"/Teacher/TeacherPage/" + this.state.teacherData['login']} element={<TeacherPage appState={this.state} url={this.serverURL}/>}/>
-                    <Route path={"/Teacher/AddTask"} element={<AddTask/>}/>
+                    <Route path={"/Teacher/AddTask"} element={<AddTask login={this.state.teacherData["login"]}/>}/>
                 </Routes>
             </Main>
         );

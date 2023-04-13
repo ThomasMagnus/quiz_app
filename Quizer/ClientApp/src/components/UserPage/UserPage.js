@@ -3,6 +3,7 @@ import "./UserPage.scss";
 import {Navigate} from "react-router-dom";
 import {getPage, detectLocalStorage} from "../../Services/services";
 import {Button} from "react-bootstrap";
+import MyVerticallyCenteredModal from "../Modal/Modal";
 
 class UserPage extends React.Component {
 
@@ -12,16 +13,15 @@ class UserPage extends React.Component {
 
     state = {
         subjects: [],
-        userProps: {},
+        userProps: JSON.parse(localStorage.getItem("data")) || {},
         tasks: [],
         fileDates: [],
+        modal: false
     }
 
     getTasks = async () => {
         this.response = await fetch('http://localhost:5276/UserPage/GetTasks')
-
         if (this.response.status === 200) return await this.response.json()
-
         console.log('Ошибка запроса tasks')
     }
 
@@ -30,31 +30,29 @@ class UserPage extends React.Component {
         return document.location = '/'
     }
 
-    getUserProp = async () => {
-        this.response = await fetch('http://localhost:5276/UserPage/GetUserProps', {
-            method: 'POST',
-            body: JSON.stringify({'userId': localStorage.getItem('userId')}),
-            headers: {
-                'Content-type': 'application/json',
-            }
-        })
-
-        if (this.response.status === 200) {
-            return await this.response.json()
-        }
-
-        console.log(this.response.statusText)
+    showModal = () => {
+        this.setState({modal: true})
     }
+
+    // getUserProp = async () => {
+    //     this.response = await fetch('http://localhost:5276/UserPage/GetUserProps', {
+    //         method: 'POST',
+    //         body: JSON.stringify({'userId': localStorage.getItem('userId')}),
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //         }
+    //     })
+    //
+    //     if (this.response.status === 200) {
+    //         return await this.response.json()
+    //     }
+    //
+    //     console.log(this.response.statusText)
+    // }
 
     async componentDidMount() {
         await getPage("http://localhost:5276/UserPage/GetSubjects", 'accessToken')
             .then(data => this.setState({subjects: data}))
-
-        await this.getUserProp()
-            .then(data => {
-                console.log(data)
-                this.setState({userProps: data})
-            })
 
         await this.getTasks()
             .then(data => {
@@ -79,15 +77,19 @@ class UserPage extends React.Component {
                 {
                     detectLocalStorage('accessToken') ?
                         <div className="user">
+                            <MyVerticallyCenteredModal
+                                show={this.state.modal}/>
                             <div className="user__info">
-                                <p>Пользователь: <span>{this.state.userProps['firstname']} {this.state.userProps['lastname']}</span></p>
-                                <p>Группа: <span>{this.state.userProps['group'] ? this.state.userProps['group'].toUpperCase() : ''}</span></p>
-                                <Button variant="primary" onClick={this.logOut}>Выйти</Button>
+                                <div className="user__info-container">
+                                    <p>Пользователь: <span>{this.state.userProps['username']}</span></p>
+                                    <p>Группа: <span>{this.state.userProps['group'] ? this.state.userProps['group'].toUpperCase() : ''}</span></p>
+                                    <Button variant="primary" onClick={this.logOut}>Выйти</Button>
+                                </div>
                             </div>
 
                             <div className="user__toolBar">
                                 <nav className="user__nav">
-                                    <ul className="user__list">
+                                    <ul className="user__list p-0">
                                         {this.state.subjects.length !== 0 ? this.state.subjects.map((item, i) =>
                                                 <li className="user__item" key={i}>
                                                     {item.name}
@@ -97,6 +99,7 @@ class UserPage extends React.Component {
                                                 <img src="img/spinner.gif" alt="спиннер"/>
                                             </div>}
                                     </ul>
+                                    <Button>Изменить</Button>
                                 </nav>
                                 <div className="user__material">
                                     {

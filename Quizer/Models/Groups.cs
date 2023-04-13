@@ -19,7 +19,7 @@ public class GroupsServices : IServices<Groups>
     {
         try
         {
-            await db.Groups.AddAsync(new Groups()
+            await db!.Groups.AddAsync(new Groups()
             {
                 Name = value["name"].ToString(),
             });
@@ -34,17 +34,17 @@ public class GroupsServices : IServices<Groups>
 
     async public Task<List<Groups>> EntityLIst()
     {
-        return await db.Groups.ToListAsync();
+        return await db!.Groups.ToListAsync();
     }
 
     public IEnumerable<Groups> GetEntity()
     {
-        return db.Groups.Select(x => x);
+        return db!.Groups.Select(x => x);
     }
 
     async public Task<Groups?> GetEntity(Dictionary<string, object> value)
     {
-        if (value.ContainsKey("name")) return await db.Groups.FirstOrDefaultAsync(predicate: x => x.Name == value["name"].ToString());
+        if (value.ContainsKey("name")) return await db!.Groups.FirstOrDefaultAsync(predicate: x => x.Name == value["name"].ToString());
 
         throw new Exception("Не передано название группы");
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import {Navigate} from "react-router-dom";
 import MyForm from "../MyForm/MyForm";
-import {detectLocalStorage, onChangeProperties} from "../../Services/services";
+import {detectLocalStorage, onChangeProperties, validateForm} from "../../Services/services";
 import Alert from 'react-bootstrap/Alert';
 import './teacherAuth.scss'
 
@@ -19,13 +19,19 @@ class TeacherAuth extends React.Component {
                 password: ''
             },
             auth: false,
-            alert: false
+            alert: false,
+            emptyInput: ''
         }
     }
 
     postDataTeacher = (e, urlToAction = 'http://localhost:5276/Teacher/Index', urlToPage = 'http://localhost:5276/Teacher/TeacherPage/' +
                         this.state.form.login) => {
-        this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessTokenTeacher')
+        e.preventDefault()
+        if (validateForm(this.state.form)) {
+            this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessTokenTeacher')
+        } else {
+            console.log("Поля не заполнены")
+        }
     }
 
     componentDidMount() {
@@ -44,7 +50,7 @@ class TeacherAuth extends React.Component {
                             {this.props.text}
                         </Alert> : ''
                     }
-                    <h1>Авторизация преподавателя</h1>
+                    <h1>Авторизация</h1>
                     <MyForm admin={this.admin} onChangeProperties={this.onChangeProperties}
                             postData={this.postDataTeacher}/>
                 </section>

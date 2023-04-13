@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {Link, Navigate} from "react-router-dom";
-import {Row, Col, Button, Container, ListGroup, Placeholder, Stack, CloseButton, Modal} from "react-bootstrap";
-import {getPage} from "../../Services/services";
+import {Row, Col, Button, Container, ListGroup, Placeholder, Stack, CloseButton, Modal, Form} from "react-bootstrap";
+import {getData, getPage} from "../../Services/services";
 import './TeacherPage.scss'
-import MyVerticallyCenteredModal from "../Modal/Modal";
+import MyVerticallyCenteredModal from "./Modal/Modal";
+import {postDataValue} from "../../Services/services";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faXmark} from "@fortawesome/free-solid-svg-icons";
 
 
 class TeacherPage extends Component {
@@ -14,19 +17,31 @@ class TeacherPage extends Component {
 
     state = {
         data: JSON.parse(localStorage.getItem('data')),
+        props: JSON.parse(localStorage.getItem('props')) || null,
         auth: !!localStorage.getItem('data'),
         tokenWork: false,
         modal: false,
         modalData: {
             subject: '',
             group: ''
-        }
+        },
+        changeProps: false,
+        propsForm: {
+            teacherId: JSON.parse(localStorage.getItem('userId')),
+            subject: '',
+            groups: []
+        },
+        subjectsList: localStorage.getItem("subjects") || []
     }
 
+    groupRef = React.createRef()
+    addBtn = React.createRef()
+    formRef = React.createRef()
+
     componentDidMount() {
+
         this.detectAuth()
             .then(response => {
-                console.log(response)
                 if (response.status === 200) {
                     this.setState({tokenWork: true})
                 } else {
@@ -34,11 +49,33 @@ class TeacherPage extends Component {
                     document.location = '/'
                 }
             })
-        // getPage("http://localhost:5276/Teacher/TeacherPage/" + this.props.appState.teacherData['login'], 'accessTokenTeacher')
-        //     .then(data => {
-        //         this.setState({data: data})
-        //     })
-        
+
+        this.getSubjects()
+    }
+
+    hideInputPlus = () => {
+        const inputsPlus = this.formRef.current.querySelectorAll('.addGroupInput')
+        for (let i = 0; i < inputsPlus.length; i++) {
+            inputsPlus[i].classList.add('addGroupInputDisplayNone')
+        }
+    }
+
+    showInputPlus = () => {
+        const inputsPlus = this.formRef.current.querySelectorAll('.addGroupInput')
+        inputsPlus[inputsPlus.length - 1].classList.add('addGroupInputDisplayDefault')
+        inputsPlus[inputsPlus.length - 1].addEventListener('click', this.addGroupInput)
+    }
+
+    addGroupInput = () => {
+        this.hideInputPlus()
+        let p = document.createElement('p')
+        p.classList.add('group')
+        p.innerHTML = `
+            <input placeholder="Введите название группы" type="text" class="mt-2 mb-0 form-control" name="group">
+            <span class="addGroupInput">+</span>
+        `
+        this.groupRef.current.after(p)
+        this.showInputPlus()
     }
 
     detectAuth = async () => {
@@ -69,11 +106,79 @@ class TeacherPage extends Component {
                         subject: target.textContent
                     }
                 })
-                this.setState({modal: true})
             }
         }
     }
 
+    deleteProps = async (e, deleteURL) => {
+        const target = e.target
+        let parentElem = undefined
+
+        if (target.tagName === 'path') {
+            parentElem = target.parentElement.parentElement
+        } else if (target.tagName === 'svg') {
+            parentElem = target.parentElement
+        }
+        const data = JSON.stringify({
+            'subjectName': deleteURL === 'teacher/deleteSubject' ? parentElem.dataset.value : parentElem.dataset.subject,
+            'groupName': parentElem.dataset.value,
+            'userId': localStorage.getItem('userId')
+        })
+        console.log(data)
+        await postDataValue(`${this.props.url}${deleteURL}`, data, 'DELETE')
+            .then(response => {
+                localStorage.setItem('props', JSON.stringify(response))
+                this.setState({props: response})
+            })
+    }
+
+    getValuesProps = (e) => {
+        const target = e.target
+
+        this.setState({
+            propsForm: {
+                ...this.state.propsForm,
+                subject: target.name === "subject" ? target.value : this.state.propsForm.subject,
+            }
+        })
+        console.log(this.state.propsForm)
+    }
+
+    addWorkData = async () => {
+        this.getGroupsArray()
+        const data = JSON.stringify(this.state.propsForm)
+        await postDataValue(`${this.props.url}teacher/addWork`, data, 'POST')
+            .then(response => {
+                console.log(response)
+                this.setState({props: response})
+                localStorage.setItem('props', JSON.stringify(response))
+                this.setState({
+                    propsForm: {
+                        ...this.state.propsForm,
+                        subject: '',
+                        groups: []
+                    }
+
+                })
+                this.formRef.current.reset()
+            })
+    }
+
+    getGroupsArray = () => {
+        const groupsInputs = this.formRef.current.querySelectorAll("input[name$='group']")
+        for (let item of groupsInputs) {
+            this.setState({groups: this.state.propsForm.groups.push(item.value)})
+        }
+    }
+
+    changeProps = () => this.setState({changeProps: !this.state.changeProps})
+
+    getSubjects = async () => {
+        await getData(`${this.props.url}teacher/subjects`)
+            .then(response => {
+                localStorage.setItem('subjectsList', JSON.stringify(response))
+            })
+    }
 
     render() {
         return (
@@ -93,8 +198,10 @@ class TeacherPage extends Component {
                                 </Col>
                                 <Col>
                                     <div className="admin__info">
-                                        <Link to={'/Teacher/AddTask'}><Button variant="primary" className="w-10">Опубликовать задание</Button></Link>
-                                        <Button variant="primary" onClick={this.logOut} className="admin__btn-exit">Выйти</Button>
+                                        <Link to={'/Teacher/AddTask'}><Button variant="primary" className="w-10">Опубликовать
+                                            задание</Button></Link>
+                                        <Button variant="primary" onClick={this.logOut}
+                                                className="admin__btn-exit">Выйти</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -103,62 +210,61 @@ class TeacherPage extends Component {
                             <Row>
                                 <Col>
                                     <h3>Ваши предметы:</h3>
-                                    <div className="admin__overview overflow-auto">
-                                        <ListGroup className='mb-3'>
-                                            {/* {
-                                                this.state.data['props'] ? 
-                                                this.state.data['props'].map((item, i) => (
-                                                    <ListGroup.Item className="admin__item" variant="light" key={i}>
-                                                        Группа: {item[1]}
-                                                        <br />
-                                                        Предметы:
-                                                        <br />
-                                                        {item[0]}
-                                                        <CloseButton className="admin__close" />
-                                                    </ListGroup.Item>
-                                                )) : ''
-                                            } */}
+                                    <div>
+                                        <ListGroup as="ol" numbered>
                                             {
-                                                this.state.data['props'] ?
-                                                this.state.data['props']['subjects'].map((item, i) => (
-                                                    <ListGroup.Item className="admin__item" action variant="light" key={i} onClick={this.showHideModal}>
-                                                        {item}
-                                                        <CloseButton className="admin__close" />
+                                                this.state.props ?
+                                                    Object.keys(this.state.props).map((item, i) => (
+                                                        <ListGroup.Item
+                                                            as="li"
+                                                            className="d-flex justify-content-between align-items-start mb-1"
+                                                            key={i}
+                                                            data-value={item}
+                                                        >
+                                                            <div className="ms-2 me-auto">
+                                                                <div className="fw-bold">{item}</div>
+                                                                {this.state.props[item].map((elem, index) =>
+                                                                    <p className='mb-0 mr-2' key={index}
+                                                                       data-value={elem} data-subject={item}>{elem}
+                                                                        {this.state.changeProps ?
+                                                                            <FontAwesomeIcon icon={faXmark}
+                                                                                             className="close-button"
+                                                                                             onClick={e => this.deleteProps(e, 'teacher/deleteGroup')}/>
+                                                                            : ''}
+                                                                    </p>)
+                                                                }
+                                                            </div>
+                                                            {this.state.changeProps ?
+                                                                <FontAwesomeIcon icon={faXmark} className="close-button"
+                                                                                 onClick={
+                                                                                     (e) => this.deleteProps(e, 'teacher/deleteSubject')}/> : ''
+                                                            }
+                                                        </ListGroup.Item>
+                                                    )) :
+                                                    <ListGroup.Item action variant="light">
+                                                        <Placeholder animation="glow">
+                                                            <Placeholder xs={6}/>
+                                                        </Placeholder>
                                                     </ListGroup.Item>
-                                                )) :
-                                                  <ListGroup.Item action variant="light">
-                                                    <Placeholder animation="glow">
-                                                        <Placeholder xs={6}/>
-                                                    </Placeholder>
-                                                </ListGroup.Item>
                                             }
                                         </ListGroup>
                                     </div>
-                                    <Button variant="primary" className='mt-3'>Добавить</Button>
+                                    <Button variant="primary" className='mt-3'
+                                            onClick={this.changeProps}>{this.state.changeProps ? 'Сохранить' : 'Изменить'}</Button>
                                 </Col>
                                 <Col>
-                                    <h3>Ваши группы:</h3>
-                                    <div className="admin__overview overflow-auto">
-                                        <ListGroup className='mb-3'>
-                                            {
-                                                this.state.data['props'] ?
-                                                this.state.data['props']['groups'].map((item, i) => (
-                                                    <ListGroup.Item action variant="light" key={i}>
-                                                        {item}
-                                                        <CloseButton className="admin__close" />
-                                                    </ListGroup.Item>
-                                                )) :
-                                                  <ListGroup.Item action variant="light">
-                                                    <Placeholder animation="glow">
-                                                        <Placeholder xs={6}/>
-                                                    </Placeholder>
-                                                </ListGroup.Item>
-                                            }
-                                        </ListGroup>
-                                    </div>
-                                    <Stack direction='horizontal' className='mt-3'>
-                                        <Button className="ms-auto" variant="primary">Добавить</Button>
-                                    </Stack>
+                                    <h3>Добавить нагрузку</h3>
+                                    <Form ref={this.formRef}>
+                                        <Form.Control type="text" placeholder="Введите название предмета" name="subject"
+                                                      onInput={this.getValuesProps}/>
+                                        <p className="group" ref={this.groupRef}>
+                                            <Form.Control type="text" placeholder="Введите название группы"
+                                                          className='mt-2' name="group"/>
+                                            <span className="addGroupInput" onClick={this.addGroupInput}>+</span>
+                                        </p>
+                                        <Button ref={this.addBtn} variant="primary" className='mt-3'
+                                                onClick={this.addWorkData}>Добавить</Button>
+                                    </Form>
                                 </Col>
                             </Row>
                         </Container>

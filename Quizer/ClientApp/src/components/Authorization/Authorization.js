@@ -3,6 +3,7 @@ import {Navigate} from "react-router-dom"
 import MyForm from "../MyForm/MyForm";
 import './Authorization.scss'
 import Alert from 'react-bootstrap/Alert';
+import {validateForm} from "../../Services/services";
 
 class Authorization extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Authorization extends React.Component {
             },
             groups: [],
             authorize: !!localStorage.getItem('data'),
-            alert: false
+            disabled: true,
         }
         this.admin = props.admin
     }
@@ -34,6 +35,10 @@ class Authorization extends React.Component {
                 Password: target.name === 'password' ? target.value : this.state.form.Password,
             }
         })
+        // console.log(this.state.form)
+        // if (validateForm(this.state.form)) {
+        //     this.setState({disabled: false})
+        // } else {this.setState({disabled: true})}
     }
 
     detectToken = () => {
@@ -58,8 +63,10 @@ class Authorization extends React.Component {
 
     postDataAuthUser = (e, urlToAction = 'http://localhost:5276/Authorization/Auth',
                         urlToPage = 'http://localhost:5276/UserPage/Index') => {
-        this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessToken')
-        console.log(JSON.stringify(this.state.form))
+        e.preventDefault()
+        if (validateForm(this.state.form)) {
+            this.props.postData(e, urlToAction, urlToPage, this.state.form, 'accessToken')
+        }
     }
 
     getGroups = async () => await fetch('http://localhost:5276/Authorization/GetGroups')
@@ -82,7 +89,7 @@ class Authorization extends React.Component {
                             {this.props.text}
                         </Alert> : ''}
                     <h1>Авторизация</h1>
-                    <MyForm admin={this.admin} groups={this.state.groups} postData={this.postDataAuthUser}
+                    <MyForm admin={this.admin} disabled={this.state.disabled} groups={this.state.groups} postData={this.postDataAuthUser}
                             onChangeProperties={this.onChangeProperties}/>
                 </section>
         );

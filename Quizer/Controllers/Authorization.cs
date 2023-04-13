@@ -1,11 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Quizer.Models;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.Extensions.Options;
 using Quizer.HelperClasses;
 using Quizer.Context;
@@ -17,7 +11,7 @@ public class Authorization : Controller
 {
 
     private readonly JwtSettings _options;
-    private string _token;
+    private string? _token;
     private readonly ILogger<Authorization> _logger;
 
     public Authorization(IOptions<JwtSettings> options, ILogger<Authorization> logger)
@@ -30,31 +24,23 @@ public class Authorization : Controller
     public async Task<IActionResult>? Auth()
     {
         using ApplicationContext applicationContext = new();
+        using SubjectsContext subjectsContext = new();
 
         UsersServices usersServices = new() { db = applicationContext };
-        Console.WriteLine("Inner 1");
+
         try
         {
             Users? userData = await HttpContext.Request.ReadFromJsonAsync<Users>();
 
-            //Users? person = await usersServices.GetEntity(new Dictionary<string, object>
-            //{
-            //    {"firstname", data?["firstname"].ToLower()},
-            //    {"lastname",  data?["lastname"].ToLower()},
-            //    {"password", data?["password"]},
-            //    {"group", Int32.Parse(data?["group"].ToString())}
-            //});
-
-            Console.WriteLine("Inner 2");
-
             Users? person = await usersServices.GetEntity(new Dictionary<string, object>
             {
-                    {"firstname", userData?.Firstname.ToLower()},
-                    {"lastname",  userData?.Lastname.ToLower()},
-                    {"password", int.Parse(userData?.Password)},
+                    {"firstname", userData?.Firstname?.ToLower()!},
+                    {"lastname", userData?.Lastname?.ToLower()!},
+                    {"patronymic", userData?.Patronymic?.ToLower()!},
+                    {"password", int.Parse(userData?.Password!)},
                     {"group", userData?.GroupsId ?? '1'}
             });
-                
+            
             if (person is null) {
                             
                 var response = new
@@ -67,9 +53,14 @@ public class Authorization : Controller
             }
             else
             {
+                GroupsServices groupsServices = new GroupsServices { db = applicationContext };
+
+                List<Groups> groupsList = await groupsServices.EntityLIst();
+                
                 string username = $"{person?.Firstname?.Replace(" ", "")} " +
                                                     $"{person?.Lastname?.Replace(" ", "")}";
 
+                List<Subjects> subjectsList = subjectsContext.subjects!.ToList();
                 TokenSecurity tokenSecurity = new(_options, username);
 
                 _token = tokenSecurity.GetToken();
@@ -78,16 +69,9 @@ public class Authorization : Controller
                 {
                     accessToken = _token,
                     username = tokenSecurity._claimsCreator.GetClaims().Name,
+                    group = groupsList?.FirstOrDefault(x => x?.Id == userData?.GroupsId)?.Name,
                     id = person?.Id
                 };
-
-                UserPropertyCreator userPropertyCreator = new (
-                    firstname: person?.Firstname,
-                    lastname: person?.Lastname,
-                    group: applicationContext?.Groups?.ToList().First(x => x.Id == userData?.GroupsId).Name,
-                    id: person?.Id);
-
-                userPropertyCreator.CreateUser();
 
                 Sessions.CreateSession(person?.Id, person?.Firstname, person?.Lastname, DateTime.Now);
 
@@ -114,7 +98,7 @@ public class Authorization : Controller
         {
             using ApplicationContext grpoupsContext = new();
             List<Groups>? groups = grpoupsContext.Groups?.ToList();
-            string[][]? groupsName = groups?.Select(x => new string[] {x.Name, x.Id.ToString()}).ToArray();
+            string[][]? groupsName = groups?.Select(x => new string[] {x?.Name!, x?.Id.ToString()!}).ToArray();
 
             return Json(groupsName);
         }

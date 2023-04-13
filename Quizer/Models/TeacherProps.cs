@@ -11,7 +11,7 @@ namespace Quizer.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public int subjectsid { get; set; }
-        public int groupsid { get; set; }
+        public int[]? groupsid { get; set; }
         public int teacherid { get; set; }
     }
 

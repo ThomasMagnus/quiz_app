@@ -28,12 +28,12 @@ namespace Quizer.Models
         {
             try
             {
-                await db.Users.AddAsync(new Users()
+                await db!.Users.AddAsync(new Users()
                 {
                     Firstname = value["firstname"].ToString(),
                     Lastname = value["lastname"].ToString(),
                     Password = value["Password"].ToString(),
-                    GroupsId = int.Parse(value["GroupsId"].ToString())
+                    GroupsId = int.Parse(value["GroupsId"].ToString()!)
                 });
 
                 await db.SaveChangesAsync();
@@ -46,23 +46,23 @@ namespace Quizer.Models
 
         async public Task<List<Users>> EntityLIst()
         {
-            return await db.Users.ToListAsync();
+            return await db!.Users.ToListAsync();
         }
 
         public IEnumerable<Users> GetEntity()
         {
-            return db.Users.Select(x => x);
+            return db!.Users.Select(x => x);
         }
 
         public async Task<Users?> GetEntity(Dictionary<string, object>? value)
         {
             try
             {
-                Users? user = await db.Users.FirstOrDefaultAsync(x => x.Firstname.ToLower() == value["firstname"].ToString().ToLower()
-                                                                    && x.Lastname.ToLower() == value["lastname"].ToString().ToLower()
-                                                                    && x.Patronymic.ToLower() == value["patronymic"].ToString().ToLower()
+                Users? user = await db!.Users.FirstOrDefaultAsync(x => x.Firstname!.ToLower() == value!["firstname"].ToString()!.ToLower()
+                                                                    && x.Lastname!.ToLower() == value["lastname"].ToString()!.ToLower()
+                                                                    && x.Patronymic!.ToLower() == value["patronymic"].ToString()!.ToLower()
                                                                     && x.Password == value["password"].ToString()
-                                                                    && x.GroupsId == int.Parse(value["group"].ToString()));
+                                                                    && x.GroupsId == int.Parse(value["group"].ToString()!));
 
                 return user;
             }

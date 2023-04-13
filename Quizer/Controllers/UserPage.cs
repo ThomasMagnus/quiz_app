@@ -10,7 +10,7 @@ namespace Quizer.Controllers
 {
     public class UserPage : Controller
     {
-        [HttpGet]
+        [HttpGet, Route("[controller]/Index")]
         [Authorize]
         public void Index()
         {
@@ -48,31 +48,31 @@ namespace Quizer.Controllers
             using (SessionsContext sessionContext = new())
             using (ApplicationContext applicationContext = new())
 
-                try
+            try
+            {
+
+                List<Sessions>? sessions = sessionContext?.Sessions?.ToList();
+                Sessions? session = sessions?.FirstOrDefault(x => x.Id == 3);
+                GroupsServices groupsServices = new() { db = applicationContext };
+
+                string? groupName = session?.User?.Groups?.Name;
+                Console.WriteLine(groupName);
+
+                var userProperty = new
                 {
+                    firstname = session?.UserFirstname,
+                    lastname = session?.UserLastname,
+                    group = groupName,
+                    id = session?.Id
+                };
 
-                    List<Sessions>? sessions = sessionContext?.Sessions?.ToList();
-                    Sessions? session = sessions?.FirstOrDefault(x => x.Id == 3);
-                    GroupsServices groupsServices = new GroupsServices() { db = applicationContext };
-
-                    string? groupName = session?.User?.Groups?.Name;
-                    Console.WriteLine(groupName);
-
-                    var userProperty = new
-                    {
-                        firstname = session?.UserFirstname,
-                        lastname = session?.UserLastname,
-                        group = groupName,
-                        id = session?.Id
-                    };
-
-                    return Json(userProperty);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return Json(ex);
-                }
+                return Json(userProperty);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(ex);
+            }
         }
 
         public IActionResult GetTasks()
@@ -82,10 +82,10 @@ namespace Quizer.Controllers
                 using ApplicationContext applicationContext = new();
                 TasksServices tasksServices = new TasksServices() { db = applicationContext };
 
-                List<Tasks>? tasks = tasksServices.SelectionValues(new Dictionary<string, object>()
+                List<Tasks>? tasks = tasksServices?.SelectionValues(new Dictionary<string, object>()
                 {
                     {"subjectId", 1},
-                }).OrderByDescending(x => x.Putdate).ToList();
+                })?.OrderByDescending(x => x?.Putdate)?.ToList();
 
                 return Json(tasks);
                 //return Json("Запрос успешно прошёл");

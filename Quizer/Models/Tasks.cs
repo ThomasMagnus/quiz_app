@@ -31,12 +31,12 @@ namespace Quizer.Models
                 Tasks task = new Tasks()
                 {
                     Filepath = value["filePath"].ToString(),
-                    Putdate = DateTime.Parse(value["putDate"].ToString()),
-                    SubjectId = int.Parse(value["subjectId"].ToString()),
-                    Filename = new FileInfo(value["filePath"].ToString()).Name,
+                    Putdate = DateTime.Parse(value["putDate"]?.ToString()!),
+                    SubjectId = int.Parse(value["subjectId"]?.ToString()!),
+                    Filename = new FileInfo(value["filePath"]?.ToString()!).Name,
                 };
 
-                await db.Tasks.AddAsync(task);
+                await db!.Tasks.AddAsync(task);
                 await db.SaveChangesAsync();
 
                 Console.WriteLine("Задание добавлено!");
@@ -54,24 +54,18 @@ namespace Quizer.Models
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Tasks> GetEntity() => db.Tasks.Select(x => x);
+        public IEnumerable<Tasks> GetEntity() => db!.Tasks.Select(x => x);
 
         public async Task<Tasks?> GetEntity(Dictionary<string, object> value)
         {
-            if (value.ContainsKey("subjectId")) { return await db.Tasks.FirstOrDefaultAsync(x => x.SubjectId == int.Parse(value["subjectId"].ToString())); }
+            if (value.ContainsKey("subjectId")) { return await db!.Tasks.FirstOrDefaultAsync(x => x.SubjectId == int.Parse(value["subjectId"].ToString()!)); }
             throw new Exception("Предмет не найден");
         }
 
-        public List<Tasks> SelectionValues(Dictionary<string, object> value)
+        public List<Tasks> SelectionValues(Dictionary<string, object>? value)
         {
-            try
-            {
-                return db.Tasks.Where(x => x.SubjectId == int.Parse(value["subjectId"].ToString())).ToList<Tasks>();
-            }
-            catch
-            {
-                return null;
-            }
+            try { return db!.Tasks.Where(x => x.SubjectId == int.Parse(value!["subjectId"].ToString()!)).ToList(); }
+            catch { return null!; }
         }
     }
 }

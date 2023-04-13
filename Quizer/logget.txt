@@ -187,3 +187,793 @@ System.Text.Json.JsonException: The JSON value could not be converted to System.
    at Microsoft.AspNetCore.Http.HttpRequestJsonExtensions.ReadFromJsonAsync[TValue](HttpRequest request, JsonSerializerOptions options, CancellationToken cancellationToken)
    at Microsoft.AspNetCore.Http.HttpRequestJsonExtensions.ReadFromJsonAsync[TValue](HttpRequest request, JsonSerializerOptions options, CancellationToken cancellationToken)
    at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 38
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value) in C:\Users\emmag\source\repos\Quizer\Quizer\Models\Users.cs:line 71
+   at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 50
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value) in C:\Users\emmag\source\repos\Quizer\Quizer\Models\Users.cs:line 71
+   at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 50
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value) in C:\Users\emmag\source\repos\Quizer\Quizer\Models\Users.cs:line 71
+   at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 50
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value) in C:\Users\emmag\source\repos\Quizer\Quizer\Models\Users.cs:line 71
+   at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 50
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value)
+   at Quizer.Controllers.Authorization.Auth()
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+System.NotImplementedException: The method or operation is not implemented.
+   at Quizer.Models.UsersServices.GetEntity(Dictionary`2 value) in C:\Users\emmag\source\repos\Quizer\Quizer\Models\Users.cs:line 71
+   at Quizer.Controllers.Authorization.Auth() in C:\Users\emmag\source\repos\Quizer\Quizer\Controllers\Authorization.cs:line 40
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Value cannot be null. (Parameter 'key')
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+Application is shutting down...
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA development server running at 'https://localhost:44491'
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+An unhandled exception has occurred while executing the request.
+An unhandled exception has occurred while executing the request.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+SPA proxy is ready. Redirecting to https://localhost:44491.
+Now listening on: http://localhost:5276
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\emmag\source\repos\Quizer\Quizer\
+No SPA development server running at https://localhost:44491 found.
+Failed to launch the SPA development server 'npm start'.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is not ready. Returning temporary landing page.
+SPA proxy is ready. Redirecting to https://localhost:44491.
+SPA development server running at 'https://localhost:44491'

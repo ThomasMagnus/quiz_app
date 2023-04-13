@@ -5,8 +5,16 @@
     }
     .user {
         &__info {
+            display: flex;
+            justify-content: end;
+        }
+        &__info-container {
             margin-top: 20px;
             text-align: end;
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
         }
         &__nav {
             padding: 10px;

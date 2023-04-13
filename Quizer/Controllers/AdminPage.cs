@@ -6,7 +6,7 @@ namespace Quizer.Controllers
 {
     public class AdminPage : Controller
     {
-        [HttpGet]
+        [HttpGet, Route("[controller]/Index")]
         [Authorize]
         public JsonResult Index()
         {
